@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <center style="margin-top: 10%;">
+    <h1 style="margin-bottom: 20px;color:rgb(26, 154, 204);">Guessing Number Game</h1>
+    <form >
+        <div class="form-group text-center">
+            <input type="number" style="width: 20%;" id="number" placeholder="enter a nunber between (1-6)"/>
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-info" onclick="gamestart()" value="Start Game"/>
+        </div>
+        <h3 id="score"></h3>
+    </form>
+    </center>
+</body>
+<script>
+    var result=0;
+    function gamestart(){
+        var num =document.getElementById("number").value;
+        console.log(num);
+        var rand=Math.floor(Math.random() * 6) + 1; 
+        let mypromise =new Promise(function(resolve,reject){
+            
+            if ((num<1)||(num>6)){
+            reject(new Error("Please enter a number between 1-6")); 
+            }
+            else if(num==rand){
+                // points=points+2;
+            resolve(2);
+            console.log("random number"+rand);
+            }
+            else if(Math.abs(num-rand)==1){
+                // points=points+1;
+                resolve(1);
+                console.log("random number"+rand);
+            }
+            else{
+                // 
+                resolve(0);
+                console.log("random number"+rand);
+            }
+
+            // console.log("points"+points);
+            
+        });
+    
+
+    mypromise.then(
+    function(points) {
+        console.log(points);
+        result=points+result;
+        document.getElementById("score").innerHTML = "your score is "+result+"..!";
+        document.getElementById("number").value="";
+        console.log("points"+result);},
+    function(error) {
+        alert("Please enter a number between 1-6");
+        document.getElementById("number").value="";
+    }
+    );
+    }
+</script>
+</html>
